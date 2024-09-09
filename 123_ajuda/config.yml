@@ -1,0 +1,42 @@
+# The config recipe.
+# https://rasa.com/docs/rasa/model-configuration/
+recipe: default.v1
+
+
+# Configuração do modelo de processamento de linguagem natural (NLU)
+language: pt
+
+
+pipeline:
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+   # Esta configuração usa expressões regulares para gerar recursos das palavras.
+  # Ele trata variações de capitalização e pontuação.
+  # O parâmetro `pattern` define a expressão regular para encontrar palavras.
+  # O parâmetro `case_sensitive` indica se a correspondência é sensível a maiúsculas e minúsculas ou não.
+  # O parâmetro `punctuation` indica se a pontuação deve ser incluída nos recursos ou não.
+  # - pattern: "[\w]+"
+  #  case_sensitive: false
+  #  punctuation: false
+- name: CountVectorsFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+- name: DIETClassifier
+  epochs: 100
+  constrain_similarities: true
+- name: EntitySynonymMapper
+
+
+# Configuração do modelo de diálogo (CORE)
+policies:
+- name: MemoizationPolicy
+- name: TEDPolicy
+  max_history: 20
+  epochs: 100
+  circuit_breaker_threshold: 0.7    # Ajuste o valor aqui
+- name: RulePolicy
+
+
+assistant_id: 20230611-214520-constant-forest

@@ -1,0 +1,18 @@
+version: "3.1"
+
+rules:
+
+  # - rule: Definir estado como DF
+  #   steps:
+  #   - intent: estado
+  #   - action: action_set_estado_df
+  #   - slot_was_set:
+  #     - estado: "DF"
+
+  # - rule: Preencher slot estado com valor DF
+  #   steps:
+  #     - intent: estado
+  #     - slot_was_set:
+  #         - estado: "DF"
+  
+  
